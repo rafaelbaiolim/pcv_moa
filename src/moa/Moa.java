@@ -5,11 +5,13 @@
  */
 package moa;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author guest-NyVQjg
  */
-public class Moa {
+class Moa {
 
     /**
      * @param args the command line arguments
@@ -21,9 +23,9 @@ public class Moa {
 
         // Conjunto Incial Permutado 
         conjunto.cnjPermutado = conjunto.getPermutacaoCnjCidade(conjunto.getConjuntoCidade());
+        ArrayList<Conjunto> populacao = new ArrayList<>();
+        populacao.add(conjunto);
 
-
-        
     }
 
 }

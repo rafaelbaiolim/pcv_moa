@@ -14,7 +14,7 @@ import java.util.*;
  */
 class Conjunto {
 
-    public ArrayList<Cidade> cnjPermutado;
+    protected ArrayList<Cidade> cnjPermutado;
 
     protected ArrayList<Cidade> getConjuntoCidade() {
         ArrayList<Cidade> cnjCidade = new ArrayList<>();
