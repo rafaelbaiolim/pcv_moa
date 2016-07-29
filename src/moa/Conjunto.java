@@ -9,7 +9,11 @@ import java.util.*;
  */
 class Conjunto {
 
-    protected ArrayList<Cidade> cnjPermutado;
+    double distancia;
+
+    Conjunto() {
+        this.distancia = 0;
+    }
 
     protected ArrayList<Cidade> getConjuntoCidade() {
         ArrayList<Cidade> cnjCidade = new ArrayList<>();
