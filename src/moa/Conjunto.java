@@ -31,7 +31,7 @@ class Conjunto {
     }
 
     protected ArrayList<Cidade> getPermutacaoCnjCidade(ArrayList<Cidade> cnjInicial) {
-        
+       
         Collections.shuffle(cnjInicial);
         return cnjInicial;
     }
