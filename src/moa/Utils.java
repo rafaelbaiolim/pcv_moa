@@ -1,42 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package moa;
-
-import java.util.ArrayList;
-import java.util.*;
 
 /**
  *
- * @author guest-NyVQjg
+ * @author rafaellb
  */
-class Conjunto {
+public class Utils {
 
-    double distancia;
-
-    Conjunto() {
-        this.distancia = 0;
-    }
-
-    protected ArrayList<Cidade> getConjuntoCidade() {
-        ArrayList<Cidade> cnjCidade = new ArrayList<>();
-        String[] entrada = getEntrada();
-        for (int i = 0; i < 48; i++) {
-            Cidade cidade = new Cidade();
-            String[] arrCordenada = entrada[i].split(" ");
-            cidade.nome = arrCordenada[0];
-            cidade.x = Integer.parseInt(arrCordenada[1]);  // coordenada X
-            cidade.y = Integer.parseInt(arrCordenada[2]); // coordenada Y
-            cnjCidade.add(cidade);
-        }
-
-        return cnjCidade;
-    }
-
-    protected ArrayList<Cidade> getPermutacaoCnjCidade(ArrayList<Cidade> cnjInicial) {
-       
-        Collections.shuffle(cnjInicial);
-        return cnjInicial;
-    }
-
-    protected String[] getEntrada() {
+    public static String[] getEntrada() {
         String ret = "1 6734 1453\n"
                 + "2 2233 10\n"
                 + "3 5530 1424\n"
