@@ -62,10 +62,9 @@ class Moa {
 
         // Rota Incial Permutado 
         Rota conjuntoPermutado = new Rota();
-        System.out.println(conjunto.getRota().get(0).nome);
-
-        
+        System.out.println(conjunto.getRota().get(0).nome); 
         conjuntoPermutado.setRota(conjunto.getPermutacaoCnjCidade(conjunto.getRota()));
+        System.out.println(conjunto.getRota().get(0).nome);
         System.out.println(conjuntoPermutado.getRota().get(0).nome);
         ArrayList<Rota> populacao = new ArrayList<>();
         populacao.add(conjuntoPermutado);

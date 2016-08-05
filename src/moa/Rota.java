@@ -26,8 +26,9 @@ class Rota {
     }
 
     protected ArrayList<Cidade> getPermutacaoCnjCidade(ArrayList<Cidade> cnjInicial) {
-        Collections.shuffle(cnjInicial);
-        return cnjInicial;
+        ArrayList<Cidade> cloneCnjInicial = (ArrayList<Cidade>) cnjInicial.clone();
+        Collections.shuffle(cloneCnjInicial);
+        return cloneCnjInicial;
     }
 
 }
