@@ -11,7 +11,7 @@ package moa;
  */
 class Cidade {
 
-    protected String nome;
+    protected int idCidade;
     protected int x = 0;
     protected int y = 0;
 }

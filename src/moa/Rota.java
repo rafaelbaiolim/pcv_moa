@@ -1,15 +1,14 @@
 package moa;
 
-import java.util.ArrayList;
 import java.util.*;
 
 /**
  *
  * @author guest-NyVQjg
  */
-class Rota {
+class Rota implements Comparable<Rota> {
 
-    double distancia;
+    protected double distancia;
     ArrayList<Cidade> rota;
 
     Rota() {
@@ -17,7 +16,18 @@ class Rota {
         rota = new ArrayList<>();
     }
 
-    protected void setRota(ArrayList<Cidade> rota) {
+    @Override
+    public int compareTo(Rota o) {
+        if (this.distancia < o.distancia) {
+            return -1;
+        }
+        if (this.distancia > o.distancia) {
+            return 1;
+        }
+        return 0;
+    }
+
+    protected void setRota(ArrayList< Cidade> rota) {
         this.rota = rota;
     }
 
