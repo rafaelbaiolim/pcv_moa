@@ -13,10 +13,12 @@ import java.util.PriorityQueue;
  */
 class Moa {
 
+    static final int TOTAL_FOR = 12;
+
     protected ArrayList<Cidade> getRotaInicial() {
         ArrayList<Cidade> rotaInicial = new ArrayList<>();
         String[] entrada = Utils.getEntrada();
-        for (int i = 0; i < 48; i++) {
+        for (int i = 0; i < TOTAL_FOR; i++) {
             Cidade cidade = new Cidade();
             String[] arrCordenada = entrada[i].split(" ");
             cidade.idCidade = Integer.parseInt(arrCordenada[0]);
@@ -72,12 +74,17 @@ class Moa {
         int pontoCorte = Math.round(rotaX.getRota().size() / 8);
         HashMap<Integer, Cidade> novaRotaA = new HashMap<>();
         HashMap<Integer, Cidade> novaRotaB = new HashMap<>();
+
+        System.out.println("MEIO" + meio);
+        System.out.println("corte" + pontoCorte);
+
         //Preenche os Valores fixos 
-        for (int i = meio - pontoCorte; i < meio + pontoCorte; i++) {
+        for (int i = meio - pontoCorte; i <= meio + pontoCorte; i++) {
+            System.out.println("INDICE " + i);
             novaRotaA.put(i, rotaX.getRota().get(i));
             novaRotaB.put(i, rotaY.getRota().get(i));
         }
-
+        System.out.println(novaRotaA.containsValue(4));
         //Cria a hash de filhos 
         for (int i = 0; i < rotaX.getRota().size(); i++) {
             if (novaRotaA.get(i) == null) {
@@ -88,9 +95,18 @@ class Moa {
                 novaRotaB.put(i, rotaX.getRota().get(i));
             }
         }
-
         List<Cidade> listRetA = new ArrayList<>(novaRotaA.values());
         List<Cidade> listRetB = new ArrayList<>(novaRotaB.values());
+
+        for (Cidade c : listRetA) {
+            System.out.print(c.idCidade + " ");
+
+        }
+        System.out.println("");
+        for (Cidade c : listRetB) {
+            System.out.print(c.idCidade + " ");
+
+        }
 
     }
 
@@ -103,10 +119,11 @@ class Moa {
 
         // Rota Incial Permutado 
         Rota conjuntoPermutado = new Rota();
+
         conjuntoPermutado.setRota(conjunto.getPermutacaoCnjCidade(conjunto.getRota()));
 
         ArrayList<Rota> populacao = new ArrayList<>();
-        populacao.add(conjuntoPermutado);
+        populacao.add(Utils.gerarSeed());
         populacao.add(conjunto);
         moa.avaliacao(populacao);
         moa.getSelecao(populacao);
