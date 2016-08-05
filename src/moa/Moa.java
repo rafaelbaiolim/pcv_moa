@@ -59,15 +59,16 @@ class Moa {
         Rota conjunto = new Rota();
         // Atribui a rota inicial do conjunto 
         conjunto.setRota(moa.getRotaInicial());
-        
+
         // Rota Incial Permutado 
-        ArrayList<Cidade> conjuntoPermutado = new ArrayList<>();
+        Rota conjuntoPermutado = new Rota();
         System.out.println(conjunto.getRota().get(0).nome);
 
-        conjuntoPermutado = conjunto.getPermutacaoCnjCidade(conjunto.getRota());
-        System.out.println(conjuntoPermutado.get(0).nome);
         
+        conjuntoPermutado.setRota(conjunto.getPermutacaoCnjCidade(conjunto.getRota()));
+        System.out.println(conjuntoPermutado.getRota().get(0).nome);
         ArrayList<Rota> populacao = new ArrayList<>();
+        populacao.add(conjuntoPermutado);
         populacao.add(conjunto);
         moa.avaliacao(populacao);
 
