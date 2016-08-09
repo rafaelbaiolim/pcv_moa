@@ -13,6 +13,7 @@ import java.util.PriorityQueue;
  */
 class Moa {
 
+    static ArrayList<Rota> populacao = new ArrayList<>();
     static final int TOTAL_FOR = 12;
 
     protected ArrayList<Cidade> getRotaInicial() {
@@ -67,35 +68,38 @@ class Moa {
         cruzamento(rotaX, rotaY);
     }
 
-    protected void inicializarNovasRotas(HashMap<Integer, Integer> novaRotaA,
-            HashMap<Integer, Integer> novaRotaB, int sizeRotas) {
-        for (int i = 0; i < sizeRotas; i++) {
-            novaRotaA.put(i, -1);
-            novaRotaB.put(i, -1);
-        }
-    }
-
     public void preencherNovaRota(
             Rota rotaX, Rota rotaY,
             HashMap<Integer, Integer> novaRotaA,
-            HashMap<Integer, Integer> novaRotaB,
-            int sizeRotas) {
+            int sizeRotas,
+            HashMap<Integer, Cidade> hashFinder
+    ) {
         boolean inHash = false;
         int j = 0;
+
         for (int i = 0; i < sizeRotas; i++) {
             if (novaRotaA.get(i) == -1) {
                 inHash = false;
                 while (!inHash) {
+
                     if (!novaRotaA.containsValue(rotaY.getRota().get(j).idCidade)) {
                         novaRotaA.put(i, rotaY.getRota().get(j).idCidade);
+                        hashFinder.put(i, rotaY.getRota().get(j));
                         inHash = true;
                     }
                     j++;
                 }
             }
         }
-        j = 0;
 
+    }
+
+    protected void inicializarNovasRotas(HashMap<Integer, Integer> novaRotaA,
+            HashMap<Integer, Integer> novaRotaB, int sizeRotas) {
+        for (int i = 0; i < sizeRotas; i++) {
+            novaRotaA.put(i, -1);
+            novaRotaB.put(i, -1);
+        }
     }
 
     public void cruzamento(Rota rotaX, Rota rotaY) {
@@ -107,28 +111,29 @@ class Moa {
 
         HashMap<Integer, Integer> novaRotaA = new HashMap<>();
         HashMap<Integer, Integer> novaRotaB = new HashMap<>();
+        HashMap<Integer, Cidade> hashFinderA = new HashMap<>();
+        HashMap<Integer, Cidade> hashFinderB = new HashMap<>();
         inicializarNovasRotas(novaRotaA, novaRotaB, sizeRotas);
+
         for (int i = meio - pontoCorte; i <= meio + pontoCorte; i++) {
             novaRotaA.put(i, rotaX.getRota().get(i).idCidade);
+            hashFinderA.put(i, rotaX.getRota().get(i));
             novaRotaB.put(i, rotaY.getRota().get(i).idCidade);
+            hashFinderB.put(i, rotaY.getRota().get(i));
         }
 
-        preencherNovaRota(rotaX, rotaY, novaRotaA, novaRotaB, sizeRotas);
-        preencherNovaRota(rotaX, rotaY, novaRotaB, novaRotaB, sizeRotas);
-        List<Integer> listRetA = new ArrayList<>(novaRotaA.values());
-        List<Integer> listRetB = new ArrayList<>(novaRotaB.values());
-        
-        for (Integer c : listRetA) {
-            System.out.print(c + " ");
-        }
-        /*
+        preencherNovaRota(rotaX, rotaY, novaRotaA, sizeRotas, hashFinderA);
+        preencherNovaRota(rotaY, rotaX, novaRotaB, sizeRotas, hashFinderB);
+
+        List<Cidade> listRetA = new ArrayList<>(hashFinderA.values());
+        List<Cidade> listRetB = new ArrayList<>(hashFinderB.values());
+
         System.out.println(
                 "");
-        for (Integer c : listRetB) {
-            System.out.print(c + " ");
+        for (Cidade c : listRetB) {
+            System.out.print(c.idCidade + " ");
 
-        }*/
-
+        }
     }
 
     public static void main(String[] args) {
@@ -143,7 +148,6 @@ class Moa {
 
         conjuntoPermutado.setRota(conjunto.getPermutacaoCnjCidade(conjunto.getRota()));
 
-        ArrayList<Rota> populacao = new ArrayList<>();
         populacao.add(Utils.gerarSeed());
         populacao.add(conjunto);
         moa.avaliacao(populacao);
