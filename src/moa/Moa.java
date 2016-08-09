@@ -2,8 +2,8 @@ package moa;
 
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -70,25 +70,31 @@ class Moa {
     public void cruzamento(Rota rotaX, Rota rotaY) {
 
 //        get Indices para o ponto de corte
-        int meio = Math.round(rotaX.getRota().size() / 2);
+        int meio = Math.round(rotaX.getRota().size() / 2) - 1;
         int pontoCorte = Math.round(rotaX.getRota().size() / 8);
         HashMap<Integer, Cidade> novaRotaA = new HashMap<>();
-        HashMap<Integer, Cidade> novaRotaB = new HashMap<>();
+        HashMap<Integer, Integer> dadosA = new HashMap<>();
 
-        System.out.println("MEIO" + meio);
-        System.out.println("corte" + pontoCorte);
+        HashMap<Integer, Cidade> novaRotaB = new HashMap<>();
+        HashMap<Integer, Integer> dadosB = new HashMap<>();
 
         //Preenche os Valores fixos 
+        //Vertice meio e corte OK indicess: 4, 5, 6.
         for (int i = meio - pontoCorte; i <= meio + pontoCorte; i++) {
-            System.out.println("INDICE " + i);
             novaRotaA.put(i, rotaX.getRota().get(i));
             novaRotaB.put(i, rotaY.getRota().get(i));
         }
-        System.out.println(novaRotaA.containsValue(4));
+
         //Cria a hash de filhos 
         for (int i = 0; i < rotaX.getRota().size(); i++) {
+            /*try{
+             System.out.println("INDICE" + i + "ELEMENTO" + novaRotaA.get(i));
+             }catch(Exception ex){} 
+             */
             if (novaRotaA.get(i) == null) {
+
                 novaRotaA.put(i, rotaY.getRota().get(i));
+                dadosA.put(rotaX.getRota().get(i).idCidade, i);
             }
 
             if (novaRotaB.get(i) == null) {
@@ -102,7 +108,9 @@ class Moa {
             System.out.print(c.idCidade + " ");
 
         }
-        System.out.println("");
+
+        System.out.println(
+                "");
         for (Cidade c : listRetB) {
             System.out.print(c.idCidade + " ");
 
