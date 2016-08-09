@@ -64,8 +64,16 @@ class Moa {
         //System.out.println(rotaX.distancia);
         //System.out.println(rotaY.distancia);
         // System.out.println(rotaK.distancia);
-
         cruzamento(rotaX, rotaY);
+    }
+
+    public void gerarMutacao(Rota perA, Rota perB) {
+        Rota mutA = new Rota();
+        Rota mutB = new Rota();
+
+        mutA.setRota(perA.getPermutacaoCnjCidade(perA.getRota()));
+        mutB.setRota(perB.getPermutacaoCnjCidade(perB.getRota()));
+
     }
 
     public void preencherNovaRota(
@@ -125,15 +133,19 @@ class Moa {
         preencherNovaRota(rotaX, rotaY, novaRotaA, sizeRotas, hashFinderA);
         preencherNovaRota(rotaY, rotaX, novaRotaB, sizeRotas, hashFinderB);
 
-        List<Cidade> listRetA = new ArrayList<>(hashFinderA.values());
-        List<Cidade> listRetB = new ArrayList<>(hashFinderB.values());
+        ArrayList<Cidade> listRetA = new ArrayList<>(hashFinderA.values());
+        ArrayList<Cidade> listRetB = new ArrayList<>(hashFinderB.values());
+        Rota rotaA = new Rota();
+        rotaA.setRota(listRetA);
+        gerarDistancias(rotaA);
+        populacao.add(rotaA);
 
-        System.out.println(
-                "");
-        for (Cidade c : listRetB) {
-            System.out.print(c.idCidade + " ");
+        Rota rotaB = new Rota();
+        rotaB.setRota(listRetB);
+        gerarDistancias(rotaB);
+        populacao.add(rotaB);
+        gerarMutacao(rotaA, rotaB);
 
-        }
     }
 
     public static void main(String[] args) {
