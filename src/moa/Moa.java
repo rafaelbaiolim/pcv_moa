@@ -72,47 +72,57 @@ class Moa {
 //        get Indices para o ponto de corte
         int meio = Math.round(rotaX.getRota().size() / 2) - 1;
         int pontoCorte = Math.round(rotaX.getRota().size() / 8);
-        HashMap<Integer, Cidade> novaRotaA = new HashMap<>();
-        HashMap<Integer, Integer> dadosA = new HashMap<>();
+        HashMap<Integer, Integer> novaRotaA = new HashMap<>();
+        HashMap<Integer, Integer> indicesA = new HashMap<>();
 
-        HashMap<Integer, Cidade> novaRotaB = new HashMap<>();
-        HashMap<Integer, Integer> dadosB = new HashMap<>();
+        HashMap<Integer, Integer> novaRotaB = new HashMap<>();
+        HashMap<Integer, Integer> indicesB = new HashMap<>();
+
+        for (int i = 0; i < rotaX.getRota().size(); i++) {
+            novaRotaA.put(i, -1);
+            novaRotaB.put(i, -1);
+
+        }
 
         //Preenche os Valores fixos 
         //Vertice meio e corte OK indicess: 4, 5, 6.
         for (int i = meio - pontoCorte; i <= meio + pontoCorte; i++) {
-            novaRotaA.put(i, rotaX.getRota().get(i));
-            novaRotaB.put(i, rotaY.getRota().get(i));
+            novaRotaA.put(i, rotaX.getRota().get(i).idCidade);
+            indicesA.put(rotaX.getRota().get(i).idCidade, i);
+            novaRotaB.put(i, rotaY.getRota().get(i).idCidade);
+            indicesB.put(rotaY.getRota().get(i).idCidade, i);
         }
-
+        System.out.println(novaRotaA.containsValue(4));
         //Cria a hash de filhos 
         for (int i = 0; i < rotaX.getRota().size(); i++) {
-            /*try{
-             System.out.println("INDICE" + i + "ELEMENTO" + novaRotaA.get(i));
-             }catch(Exception ex){} 
-             */
-            if (novaRotaA.get(i) == null) {
-
-                novaRotaA.put(i, rotaY.getRota().get(i));
-                dadosA.put(rotaX.getRota().get(i).idCidade, i);
-            }
-
-            if (novaRotaB.get(i) == null) {
-                novaRotaB.put(i, rotaX.getRota().get(i));
+            if (novaRotaA.get(i) == -1) {
+                for (int j = i; j < rotaX.getRota().size(); j++) {
+                    if (indicesA.get(rotaY.getRota().get(j).idCidade) == null) {
+                        novaRotaA.put(j, rotaY.getRota().get(j).idCidade);
+                        break;
+                    }
+                }
             }
         }
-        List<Cidade> listRetA = new ArrayList<>(novaRotaA.values());
-        List<Cidade> listRetB = new ArrayList<>(novaRotaB.values());
+        /*  for (int j = 0; j < rotaX.getRota().size(); j++) {
+            if ((novaRotaB.get(j) == -1)
+                    && rotaX.getRota().get(j).idCidade != novaRotaB.get(i)) {
+                novaRotaB.put(j, rotaX.getRota().get(j).idCidade);
+                break;
+            }
+        }*/
 
-        for (Cidade c : listRetA) {
-            System.out.print(c.idCidade + " ");
+        List<Integer> listRetA = new ArrayList<>(novaRotaA.values());
+        List<Integer> listRetB = new ArrayList<>(novaRotaB.values());
 
+        for (Integer c : listRetA) {
+            System.out.print(c + " ");
         }
 
         System.out.println(
                 "");
-        for (Cidade c : listRetB) {
-            System.out.print(c.idCidade + " ");
+        for (Integer c : listRetB) {
+            System.out.print(c + " ");
 
         }
 
