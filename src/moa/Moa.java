@@ -149,14 +149,15 @@ class Moa {
 
     public Rota executarGeneticoPcv(Rota conjunto) {
         long t = System.currentTimeMillis();
-        long end = t + 9000;
+        long end = t + 900;
         long slp = 2;
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 0; i <= 50; i++) {
             Rota conjuntoPermutado = new Rota();
             conjuntoPermutado.setRota(conjunto.getPermutacaoCnjCidade(conjunto.getRota()));
             populacao.add(conjuntoPermutado);
             populacao.add(conjunto);
         }
+
         PriorityQueue<Rota> Q = new PriorityQueue<>();
         while (System.currentTimeMillis() < end) {
             avaliacao(populacao);
@@ -174,12 +175,10 @@ class Moa {
     public static void main(String[] args) {
         Moa moa = new Moa();
         // Rota entrada 
-
         Rota conjunto = new Rota();
         conjunto.setRota(moa.getRotaInicial());
-
         Rota conj = moa.executarGeneticoPcv(conjunto);
-        System.out.println("Result" + conj.distancia);
+        System.out.println("Result : " + (int) conj.distancia);
         for (Cidade c : conj.getRota()) {
             System.out.print(c.idCidade + " ");
         }
