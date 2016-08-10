@@ -45,7 +45,9 @@ class Moa {
 
     public void avaliacao(ArrayList<Rota> populacao) {
         for (int i = 0; i < populacao.size(); i++) {
-            this.gerarDistancias(populacao.get(i));
+            if (populacao.get(i).distancia == 0) {
+                this.gerarDistancias(populacao.get(i));
+            }
             //System.out.println("life " + populacao.get(1).distancia);
         }
     }
