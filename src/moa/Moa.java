@@ -48,7 +48,7 @@ class Moa {
         while (it.hasNext()) {
             Map.Entry<Integer, Rota> rota = (Map.Entry) it.next();
             this.gerarDistancias(rota.getValue());
-  
+
         }
 
     }
@@ -59,8 +59,6 @@ class Moa {
         while (it.hasNext()) {
             Map.Entry<Integer, Rota> rota = (Map.Entry) it.next();
             Q.add(rota.getValue());
-            it.remove();
-
         }
 
         Rota rotaX = Q.remove();
@@ -71,6 +69,20 @@ class Moa {
     }
 
     public void gerarMutacao(Rota perA, Rota perB) {
+        PriorityQueue<Rota> Q = new PriorityQueue<>();
+
+        Iterator it = populacao.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Integer, Rota> rota = (Map.Entry) it.next();
+            Q.add(rota.getValue());
+        }
+
+        Rota maiorA = Q.remove();
+        Rota maiorB = Q.remove();
+
+        populacao.remove(maiorA.idRota);
+        populacao.remove(maiorB.idRota);
+
         Rota mutA = new Rota();
         Rota mutB = new Rota();
 
@@ -159,9 +171,8 @@ class Moa {
         populacao.put(rotaInicial.idRota, rotaInicial);
         avaliacao(populacao);
 
-        for (int i = 0; i <= 49; i++) {
+        for (int i = 0; i <= 249; i++) {
             Rota conjuntoPermutado = new Rota();
-            System.out.println(conjuntoPermutado.idRota);
             conjuntoPermutado.setRota(rotaInicial.getPermutacaoCnjCidade(rotaInicial.getRota()));
             populacao.put(conjuntoPermutado.idRota, conjuntoPermutado);
         }
@@ -172,10 +183,12 @@ class Moa {
             getSelecao(populacao);
         }
 
-        for (int i = 0; i < populacao.size(); i++) {
-            Q.add(populacao.get(i));
-
+        Iterator it = populacao.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<Integer, Rota> rota = (Map.Entry) it.next();
+            Q.add(rota.getValue());
         }
+
         System.out.println("POP SIZE:  " + populacao.size());
         return Q.remove();
     }
