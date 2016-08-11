@@ -140,7 +140,7 @@ class Moa {
         rotaA.setRota(listRetA);
         gerarDistancias(rotaA);
         populacao.add(rotaA);
-
+        
         Rota rotaB = new Rota();
         rotaB.setRota(listRetB);
         gerarDistancias(rotaB);
